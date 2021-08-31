@@ -9,7 +9,7 @@ from tqdm import tqdm
 
 from datasets import ImagesTestDS
 
-from nn_classifier.classifier_settings import (
+from classifier_settings import (
     MODEL_WEIGHTS_PATH,
     TEST_DATASET_PATH,
     MODE,
@@ -17,13 +17,14 @@ from nn_classifier.classifier_settings import (
     RESULT_FILE,
     RESULT_DIR,
     HOME_DIR,
+    PREDICT_DEVICE,
     RESULT_COLUMNS, IMAGE_SIZE, BATCH_SIZE, NUM_WORKERS
 )
 from utils import get_val_augmentations
 
 
 def main():
-    device = 'cuda:0'
+    device = PREDICT_DEVICE
     albumentations_transform_validate = get_val_augmentations(IMAGE_SIZE)
 
     annotations_list = []
@@ -76,7 +77,7 @@ def main():
 
     classified_list = []
     val_len = len(validate_loader)
-    for idx, (imgs, filepaths) in tqdm(enumerate(validate_loader), total=len(validate_loader)):
+    for idx, (imgs, filepaths) in tqdm(enumerate(validate_loader), total=val_len):
         with torch.no_grad():
             imgs = imgs.to(device)
             output_test = model(imgs)
@@ -87,10 +88,11 @@ def main():
                 classified_list.append(
                     (path, pred)
                 )
-        print(classified_list)
-        print("Сохранение результатов ...")
-        pd.DataFrame(classified_list, columns=RESULT_COLUMNS).to_csv(RESULT_FILE, sep=';')
-        print("Сохранение завершено!")
+
+    print(classified_list)
+    print("Сохранение результатов ...")
+    pd.DataFrame(classified_list, columns=RESULT_COLUMNS).to_csv(RESULT_FILE, sep=';')
+    print("Сохранение завершено!")
 
 
 if __name__ == '__main__':
