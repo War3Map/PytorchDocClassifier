@@ -29,3 +29,4 @@ torchvision
 tqdm==4.56.0
 typing-extensions==3.7.4.3
 click
+pytesseract==0.3.8
