@@ -54,7 +54,7 @@ def classify(dataset_path, weights_path, result_path,
     :param predicted_classes: Classes for predictions
     :param device: Device used for classify
     :param result_columns: Columns for result report
-    :return:
+    :return: classified list in format image_path, class
     """
 
     running_device = device if device in AVAILABLE_DEVICES else "cpu"
@@ -129,6 +129,8 @@ def classify(dataset_path, weights_path, result_path,
     pd.DataFrame(classified_list,
                  columns=result_columns).to_csv(result_path, sep=';')
     print("Сохранение завершено!")
+
+    return classified_list
 
 
 if __name__ == '__main__':
