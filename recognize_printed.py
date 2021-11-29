@@ -83,7 +83,7 @@ def recognize_image(source_path, result_path):
     save_to_txt(tesseract_recognize(source_path), result_path)
 
 
-TEST_IMAGE = r"C:\Users\IVAN\Desktop\Texts\test\printed\doc21r.png"
+TEST_IMAGE = r"..."
 
 if __name__ == "__main__":
     recognize_image(TEST_IMAGE, "test_result")

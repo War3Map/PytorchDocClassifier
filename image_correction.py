@@ -35,9 +35,10 @@ def correct_rotation(image_path: str) -> tuple[np.ndarray, int, np.ndarray]:
     print(angle)
     if angle < -45:
         angle = -(90 + angle)
+    elif 75 < abs(angle) < 90:
+        angle = (90 - angle)
     # otherwise, just take the inverse of the angle to make
     # it positive
-    # TODO: correct rotation angle when near 90 degrees
     else:
         angle = -angle
 
@@ -53,8 +54,7 @@ def correct_rotation(image_path: str) -> tuple[np.ndarray, int, np.ndarray]:
 
 
 if __name__ == '__main__':
-    TEST_PATH = r"C:\Users\IVAN\Desktop\Texts\test\printed\doc21r.png"
-    # TEST_PATH = r"C:\Users\IVAN\Desktop\Texts\test\printed\doc21r_serious.png"
+    TEST_PATH = r"..."
 
     rotated, angle, source = correct_rotation(TEST_PATH)
 
