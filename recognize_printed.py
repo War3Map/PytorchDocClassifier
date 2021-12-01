@@ -1,3 +1,4 @@
+from pathlib import Path
 from time import time
 
 import cv2
@@ -5,7 +6,7 @@ import pytesseract
 from pytesseract import Output
 
 from image_correction import correct_rotation
-from settings import TESSERACT_PATH, RECOGNIZE_TEST_IMAGE
+from settings import TESSERACT_PATH, RECOGNIZE_TEST_IMAGE, TEST_DATA_PATH
 
 pytesseract.pytesseract.tesseract_cmd = TESSERACT_PATH
 
@@ -86,4 +87,5 @@ def recognize_image(source_path, result_path):
 
 
 if __name__ == "__main__":
-    recognize_image(RECOGNIZE_TEST_IMAGE, "test_result")
+    test_result_path = Path(TEST_DATA_PATH).resolve()
+    recognize_image(RECOGNIZE_TEST_IMAGE, str(test_result_path))

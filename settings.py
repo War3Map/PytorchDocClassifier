@@ -8,3 +8,6 @@ CORRECTION_TEST_PATH = r"..."
 RECOGNIZE_TEST_IMAGE = r"..."
 # path to tesseract
 TESSERACT_PATH = r"..."
+# path for save test results
+TEST_DATA_PATH = r".\test_data"
+
