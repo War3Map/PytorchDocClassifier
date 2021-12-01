@@ -6,9 +6,9 @@ from tqdm import tqdm
 from torch.utils.data import DataLoader
 from sklearn.metrics import accuracy_score
 
-from datasets import TrainImageDataset
-from utils import get_val_augmentations, get_train_augmentations, preprocess_data
-from classifier_settings import (
+from classifier.datasets import TrainImageDataset
+from classifier.utils import get_val_augmentations, get_train_augmentations, preprocess_data
+from classifier.classifier_settings import (
     MODEL_WEIGHTS_PATH,
     TRAIN_PATH,
     CLASSES,

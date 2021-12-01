@@ -7,9 +7,9 @@ import torchvision.models as models
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
-from datasets import ImagesTestDS
+from classifier.datasets import ImagesTestDS
 
-from classifier_settings import (
+from classifier.classifier_settings import (
     MODEL_WEIGHTS_PATH,
     TEST_DATASET_PATH,
     CLASSES,
@@ -101,7 +101,7 @@ def classify(dataset_path, weights_path, result_path,
     classifier = torch.nn.Softmax()
     # создаём папки с классами
     if need_copy:
-        current_dir = os.path.normpath(".")
+        current_dir = os.path.normpath("..")
         for class_name in predicted_classes:
             os.makedirs(fr'{os.path.join(current_dir, result_dir, class_name)}',
                         exist_ok=True)

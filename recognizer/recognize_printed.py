@@ -5,7 +5,7 @@ import cv2
 import pytesseract
 from pytesseract import Output
 
-from image_correction import correct_rotation
+from recognizer.image_correction import correct_rotation
 from settings import TESSERACT_PATH, RECOGNIZE_TEST_IMAGE, TEST_DATA_PATH
 
 pytesseract.pytesseract.tesseract_cmd = TESSERACT_PATH

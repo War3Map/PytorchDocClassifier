@@ -1,7 +1,7 @@
 import pandas
 import os
 from pathlib import Path
-from classifier_settings import DS_PATH
+from classifier.classifier_settings import DS_PATH
 
 markup = []
 labels = []

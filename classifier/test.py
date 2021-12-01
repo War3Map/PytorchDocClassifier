@@ -7,9 +7,9 @@ import torchvision.models as models
 from tqdm import tqdm
 from torch.utils.data import DataLoader
 from sklearn.metrics import accuracy_score
-from datasets import Imagewoof
+from classifier.datasets import Imagewoof
 from nn_classifier.classifier_settings import CLASSES
-from utils import get_val_augmentations, preprocess_data
+from classifier.utils import get_val_augmentations, preprocess_data
 
 
 def main():
