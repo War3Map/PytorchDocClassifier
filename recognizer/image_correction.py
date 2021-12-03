@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-from settings import CORRECTION_TEST_PATH
+from recognizer.settings import CORRECTION_TEST_PATH
 
 
 def correct_rotation(source_image) -> tuple[np.ndarray, int, np.ndarray]:
@@ -44,14 +44,14 @@ def correct_rotation(source_image) -> tuple[np.ndarray, int, np.ndarray]:
         current_angle = -current_angle
 
     # rotate the image to deskew it
-    h, w = image.shape[:2]
+    h, w = source_image.shape[:2]
     center = (w // 2, h // 2)
     rotation_matrix = cv2.getRotationMatrix2D(center, current_angle, 1.0)
-    rotated_image = cv2.warpAffine(image, rotation_matrix, (w, h),
+    rotated_image = cv2.warpAffine(source_image, rotation_matrix, (w, h),
                                    flags=cv2.INTER_CUBIC,
                                    borderMode=cv2.BORDER_REPLICATE)
 
-    return rotated_image, angle, image
+    return rotated_image, current_angle, source_image
 
 
 if __name__ == '__main__':

@@ -6,7 +6,7 @@ import pytesseract
 from pytesseract import Output
 
 from recognizer.image_correction import correct_rotation
-from settings import TESSERACT_PATH, RECOGNIZE_TEST_IMAGE, TEST_DATA_PATH
+from recognizer.settings import TESSERACT_PATH, RECOGNIZE_TEST_IMAGE, TEST_DATA_PATH
 
 pytesseract.pytesseract.tesseract_cmd = TESSERACT_PATH
 
@@ -26,19 +26,19 @@ def tesseract_recognize(image_path):
     image = cv2.imread(image_path)
 
     # correct rotation, align text
-    start_time = time()
+    # start_time = time()
     image, _, _ = correct_rotation(image)
-    end_time = time() - start_time
-    print(f"Корректировка угла: {end_time}")
-    show_image(image)
+    # end_time = time() - start_time
+    # print(f"Корректировка угла: {end_time}")
+    # show_image(image)
 
     # detect text rotation angle
-    start_time = time()
+    # start_time = time()
     info = pytesseract.image_to_osd(image, output_type=Output.DICT)
     # print(info)
-    end_time = time() - start_time
     angle = info["orientation"]
-    print(f"Определение угла({angle}): {end_time}")
+    # end_time = time() - start_time
+    # print(f"Определение угла({angle}): {end_time}")
 
     # correct rotation angle in case of 270
     if angle == 270:
@@ -51,8 +51,8 @@ def tesseract_recognize(image_path):
         # Perform the rotation
         rotation_matrix = cv2.getRotationMatrix2D(center, angle, 1.0)
         image = cv2.warpAffine(image, rotation_matrix, (w, h))
-        print(f"Поворот:!")
-        show_image(image)
+        # print(f"Поворот:!")
+        # show_image(image)
 
     # Adding custom options
     # Page segmentation mode
@@ -60,13 +60,13 @@ def tesseract_recognize(image_path):
     # OCR Engine modes:
     # 3 = Default, based on what is available.
 
+    # start_time = time()
     custom_config = r'--oem 3 --psm 6'
-    start_time = time()
     result = pytesseract.image_to_string(image,
                                          config=custom_config,
                                          lang='rus')
-    end_time = time() - start_time
-    print(f"Распознавание: {end_time}")
+    # end_time = time() - start_time
+    # print(f"Распознавание: {end_time}")
     return result
 
 
