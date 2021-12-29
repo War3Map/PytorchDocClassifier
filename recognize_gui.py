@@ -13,7 +13,7 @@ sg.theme('LightBlue1')  # Add a touch of color
 # All the stuff inside your window.
 layout = [
     [sg.Text('Распознать')],
-    [sg.Text('Путь к файлу'), sg.InputText(key='path_to_file'),
+    [sg.Text('Путь к файлу'), sg.InputText(key='path_to_file',),
      sg.FilesBrowse("Выбрать", file_types=(("Изображения",
                                            "*.jpeg;*.jpg;*.png;*.gif;*.tiff"), ))],
 

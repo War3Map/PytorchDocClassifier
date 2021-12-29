@@ -19,10 +19,13 @@ def correct_rotation(source_image) -> tuple[np.ndarray, int, np.ndarray]:
     # the background is "black"
     gray = cv2.cvtColor(source_image, cv2.COLOR_BGR2GRAY)
     gray = cv2.bitwise_not(gray)
+
     # threshold the image, setting all foreground pixels to
     # 255 and all background pixels to 0
     thresh = cv2.threshold(gray, 0, 255,
                            cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
+
+    # cv2.imwrite("thresh.png", thresh)
 
     # grab the (x, y) coordinates of all pixel values that
     # are greater than zero, then use these coordinates to
@@ -46,10 +49,14 @@ def correct_rotation(source_image) -> tuple[np.ndarray, int, np.ndarray]:
     # rotate the image to deskew it
     h, w = source_image.shape[:2]
     center = (w // 2, h // 2)
+
+    rotated_image = thresh
     rotation_matrix = cv2.getRotationMatrix2D(center, current_angle, 1.0)
-    rotated_image = cv2.warpAffine(source_image, rotation_matrix, (w, h),
+    rotated_image = cv2.warpAffine(rotated_image, rotation_matrix, (w, h),
                                    flags=cv2.INTER_CUBIC,
-                                   borderMode=cv2.BORDER_REPLICATE)
+                                  borderMode=cv2.BORDER_REPLICATE)
+
+    cv2.imwrite("rotated.png", thresh)
 
     return rotated_image, current_angle, source_image
 
